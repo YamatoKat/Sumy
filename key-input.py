@@ -11,26 +11,8 @@ from sumy.summarizers.lex_rank import LexRankSummarizer
 # Spacy
 nlp = spacy.load('ja_ginza')
 
-#doc = nlp('これがライブラリの実験です')
-#for sent in doc.sents:
-#    for token in sent:
-#        print(token.i, token.orth_, token.lemma_, token.pos_, token.tag_, token.dep_, token.head.i)
-#   print('EOS')
-
-
-# the target book url
-url = 'https://www.aozora.gr.jp/cards/001403/files/49986_37674.html'
-html = request.urlopen(url)
-soup = BeautifulSoup(html, 'html.parser')
-body = soup.select('.main_text')
-
-text = ''
-for b in body[0]:
-    if type(b) == bs4.element.NavigableString:
-        text += b
-        continue
-    # only kanji
-    text += ''.join([e.text for e in b.find_all('rb')])
+# textの入力
+text = 'かつおぶしはどういうふうに選択し、どういうふうにして削るか。まず、かつおぶしの良否の簡単な選択法をご披露しよう。よいかつおぶしは、かつおぶしとかつおぶしとを叩き合わすと、カンカンといってまるで拍子木か、ある種の石を鳴らすみたいな音がするもの。'
 
 # レンマ化
 corpus = []
@@ -45,7 +27,6 @@ for s in doc.sents:
 
 print(len(corpus))
 print(len(originals))
-
 
 # Sumy
 # 連結したcorpusを再度tinysegmenterでトークナイズさせる
