@@ -8,7 +8,7 @@ from xml.dom.minidom import parse
 from math import log
 
 # ファイル読み込み
-DIR = r"../sumy/data"
+DIR = r"/Users/yamato/Desktop/data"
 posts = [open(os.path.join(DIR, f)).read() for f in os.listdir(DIR)]
 text = ','.join(posts)
 
