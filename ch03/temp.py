@@ -12,9 +12,8 @@ import scipy as sp
 
 from sklearn.feature_extraction.text import CountVectorizer
 
-DIR = r"../sumy/data"
+DIR = r"/Users/yamato/Desktop/data"
 posts = [open(os.path.join(DIR, f)).read() for f in os.listdir(DIR)]
-
 
 
 
