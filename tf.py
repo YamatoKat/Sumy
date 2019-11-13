@@ -11,10 +11,12 @@ import spacy
 # Spacy
 nlp = spacy.load('ja_ginza')
 
-
 # ファイル読み込み
 DIR = r"/Users/yamato/Desktop/data"
-posts = [open(os.path.join(DIR, f)).read() for f in os.listdir(DIR)]
+f = os.listdir(DIR)
+
+N = 2 #何個めの文書
+posts = [open(os.path.join(DIR, f[N])).read()]
 text = ','.join(posts)
 
 # レンマ化
@@ -39,28 +41,14 @@ while node:
             noun.append( replace_node )
     node = node.next
 
-# TF-IDF
-N = 5 # 文書数
-tf, df, tfidf = {},{},{}
-df_list = []
-
+# TF：文書中に出てくる頻度の多いワードを抽出
+tf = {}
 for word in noun:
     try:
         tf[word] = tf[word] + 1
     except KeyError:
         tf[word] = 1
 
-for word in noun:
-    try:
-        if word in df_list: 
-            continue
-        df[word] = df[word] + 1
-    except KeyError:
-        df[word] = 1
-
-for k,v in tf.items():
-    tfidf[k] = tf[k] * log( N / df[k] )
-
-temp = sorted( tfidf.items(), key=lambda x:x[1], reverse=True )
+temp = sorted( tf.items(), key=lambda x:x[1], reverse=True )
 for k,v in temp:
     print (k,v)
