@@ -12,9 +12,13 @@ import spacy
 nlp = spacy.load('ja_ginza')
 
 
-# ファイル読み込み
+# どこのフォルダを読み込むか指定
 DIR = r"/Users/yamato/Desktop/data"
-posts = [open(os.path.join(DIR, f)).read() for f in os.listdir(DIR)]
+f = os.listdir(DIR)
+
+#何個めの文書を読み込むか入力
+N =  2
+posts = [open(os.path.join(DIR, f[N])).read()]
 text = ','.join(posts)
 
 # レンマ化
@@ -40,7 +44,7 @@ while node:
     node = node.next
 
 # TF-IDF
-N = 5 # 文書数
+number = len(corpus) # 文書数
 tf, df, tfidf = {},{},{}
 df_list = []
 
@@ -59,7 +63,7 @@ for word in noun:
         df[word] = 1
 
 for k,v in tf.items():
-    tfidf[k] = tf[k] * log( N / df[k] )
+    tfidf[k] = tf[k] * log( number / df[k] )
 
 temp = sorted( tfidf.items(), key=lambda x:x[1], reverse=True )
 for k,v in temp:
